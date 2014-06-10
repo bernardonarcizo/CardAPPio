@@ -1,21 +1,21 @@
 CREATE TABLE Category(
-	cat_id INT PRIMARY KEY,
+	cat_id serial PRIMARY KEY,
 	cat_name VARCHAR(45) NOT NULL,
-	cat_image VARCHAR(45) NOT NULL
+	cat_image VARCHAR(45)
 );
 
 CREATE TABLE Product(
-	prod_id INT PRIMARY KEY,
-	id_cat INT,
-	pro_name VARCHAR(45) NOT NULL,
-	pro_description VARCHAR(45),
-	pro_image VARCHAR(45),
-	pro_price INT NOT NULL,
-	FOREIGN KEY (id_cat) REFERENCES Category(cat_id)
+	prod_id serial PRIMARY KEY,
+	cat_id INT,
+	prod_name VARCHAR(45) NOT NULL,
+	prod_description VARCHAR(45),
+	prod_image VARCHAR(45),
+	prod_price INT NOT NULL,
+	FOREIGN KEY (cat_id) REFERENCES Category(cat_id)
 );
 
 CREATE TABLE Bill(
-	bill_id INT PRIMARY KEY,
+	bill_id serial PRIMARY KEY,
 	bill_table VARCHAR(45),
 	bill_status VARCHAR(45),
 	bill_open_time TIMESTAMP,
@@ -24,9 +24,9 @@ CREATE TABLE Bill(
 );
 
 CREATE TABLE Orders(
-	orders_id INT PRIMARY KEY,
-	id_prod INT REFERENCES Product(prod_id),
-	id_bill INT REFERENCES bill(bill_id),
+	orders_id serial PRIMARY KEY,
+	prod_id INT REFERENCES Product(prod_id),
+	bill_id INT REFERENCES bill(bill_id),
 	ord_quantity INT,
 	ord_unity_price FLOAT,
 	ord_status VARCHAR(45),

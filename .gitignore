@@ -5,3 +5,5 @@ CardAPPioCustomer/res/values/styles.xml
 CardAPPioCustomer/res/values-w820dp/dimens.xml
 CardAPPioCustomer/proguard-project.txt
 CardAPPioCustomer/lint.xml
+CardAPPioCustomer/bin/
+CardAPPioCustomer/gen/

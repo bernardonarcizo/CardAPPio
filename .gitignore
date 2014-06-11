@@ -1,2 +1,7 @@
 *.xml~
 /CardAPPioCloud/build/
+CardAPPioCustomer/lint.xml
+CardAPPioCustomer/res/values/styles.xml
+CardAPPioCustomer/res/values-w820dp/dimens.xml
+CardAPPioCustomer/proguard-project.txt
+CardAPPioCustomer/lint.xml

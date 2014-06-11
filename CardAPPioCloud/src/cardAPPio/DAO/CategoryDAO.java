@@ -34,7 +34,7 @@ public class CategoryDAO {
                // for each line of ResultSet
                for (int i = 0; i < nLines; i++) {
                    Category cat = new Category();
-                   cat.setCat_id(rs.getString("cat_id"));
+                   cat.setCat_id(Integer.parseInt(rs.getString("cat_id")));
                    cat.setCat_name(rs.getString("cat_name"));
                    rs.next();
                    data[i] = cat;
@@ -55,7 +55,7 @@ public class CategoryDAO {
                 ResultSet rs = stmt.executeQuery("SELECT cat_id, cat_name FROM category WHERE cat_id="+cat_id+";");
                 rs.next();
                 Category cat = new Category();
-                cat.setCat_id(rs.getString("cat_id"));
+                cat.setCat_id(Integer.parseInt(rs.getString("cat_id")));
                 cat.setCat_name(rs.getString("cat_name"));
                 ret.setData(cat);
                 ret.setStatus(Global.OK);

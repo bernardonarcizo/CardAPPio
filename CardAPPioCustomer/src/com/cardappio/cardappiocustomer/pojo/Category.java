@@ -36,5 +36,8 @@ public class Category {
     public void setCat_name(String cat_name) {
         this.cat_name = cat_name;
     }
-    
+    @Override
+    public String toString() {
+        return this.cat_name;
+    }
 }

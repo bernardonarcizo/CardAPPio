@@ -23,12 +23,12 @@ public class CategoryDAO {
         Database_Base<Category[]> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException {
-               ResultSet rs = stmt.executeQuery("select count(*) from category");
+               ResultSet rs = stmt.executeQuery("select count(*) from category;");
                rs.next();
                int nLines = rs.getInt(1);
                log.log(Level.INFO, "=== getCategories lines in table=" + nLines);
                Category[] data = new Category[nLines];
-               rs = stmt.executeQuery("select cat_id, cat_name from category");
+               rs = stmt.executeQuery("select cat_id, cat_name from category;");
                rs.next();
                int rowCount = 0;
                // for each line of ResultSet
@@ -52,10 +52,10 @@ public class CategoryDAO {
         Database_Base<Category> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException{
-                ResultSet rs = stmt.executeQuery("SELECT cat_id, cat_name FROM category WHERE cat_id="+cat_id+";");
+                ResultSet rs = stmt.executeQuery("SELECT cat_id, cat_name FROM category WHERE cat_id=" + cat_id + ";");
                 rs.next();
                 Category cat = new Category();
-                cat.setCat_id(Integer.parseInt(rs.getString("cat_id")));
+                cat.setCat_id(rs.getInt("cat_id"));
                 cat.setCat_name(rs.getString("cat_name"));
                 ret.setData(cat);
                 ret.setStatus(Global.OK);

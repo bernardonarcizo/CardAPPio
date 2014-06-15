@@ -21,7 +21,7 @@ CREATE TABLE Bill(
 	bill_open_time TIMESTAMP,
 	bill_close_time TIMESTAMP,
 	bill_payment_method VARCHAR(45),
-	bill_device_id VARCHAR(45),
+	bill_device_id VARCHAR(45)
 );
 
 CREATE TABLE Orders(

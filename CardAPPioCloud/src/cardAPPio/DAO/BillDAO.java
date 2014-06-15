@@ -19,7 +19,7 @@ import java.sql.Timestamp;
  */
 public class BillDAO {
     
-    public Response getBill(final int bill_id){
+    public static Response getBill(final int bill_id){
         Database_Base<Bill> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException{
@@ -35,6 +35,32 @@ public class BillDAO {
                 ret.setData(bill);
                 ret.setStatus(Global.OK);
             } 
+        };
+        return dbb.response();
+    }
+    public static Response chBillStatus(final int bill_id, final String bill_status){
+        Database_Base<Bill> dbb = new Database_Base(){
+            @Override
+            void evaluate() throws SQLException{
+                String query = "UPDATE bill SET (bill_status) = ('" + bill_status + "') WHERE bill_id = " + bill_id+ " RETURNING * ;";
+                if(bill_status.equals("4")){
+                    java.util.Date date = new java.util.Date();
+                    Timestamp bill_close_time = new Timestamp(date.getTime());
+                    query = "UPDATE bill SET (bill_status, bill_close_time) = ('" + bill_status + "', '" + bill_close_time + "') WHERE bill_id = " + bill_id+ " RETURNING * ;";
+                }
+                ResultSet rs = stmt.executeQuery(query);
+                rs.next();
+                Bill bill = new Bill();
+                bill.setBill_id(rs.getInt("bill_id"));
+                bill.setBill_table(rs.getString("bill_table"));
+                bill.setBill_open_time(rs.getTimestamp("bill_open_time"));
+                bill.setBill_close_time(rs.getTimestamp("bill_close_time"));
+                bill.setBill_status(rs.getString("bill_status"));
+                bill.setBill_payment_method(rs.getString("bill_payment_method"));
+                ret.setData(bill);
+                ret.setStatus(Global.OK);    
+                
+            }
         };
         return dbb.response();
     }

@@ -4,6 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Pedro/Documents/GitHub/CardAPPio/CardAPPioCloud/src/cardAPPio/Global.java</file>
+            <file>file:/C:/Users/Pedro/Documents/GitHub/CardAPPio/CardAPPioCloud/src/cardAPPio/DAO/CategoryDAO.java</file>
+            <file>file:/C:/Users/Pedro/Documents/GitHub/CardAPPio/CardAPPioCloud/src/cardAPPio/POJO/Bill.java</file>
+            <file>file:/C:/Users/Pedro/Documents/GitHub/CardAPPio/CardAPPioCloud/src/cardAPPio/DAO/BillDAO.java</file>
+            <file>file:/C:/Users/Pedro/Documents/GitHub/CardAPPio/CardAPPioCloud/src/cardAPPio/CardAPPio.java</file>
         </group>
     </open-files>
 </project-private>

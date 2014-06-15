@@ -7,6 +7,7 @@ import cardAPPio.DAO.BillDAO;
 import cardAPPio.POJO.Response;
 import cardAPPio.DAO.CategoryDAO;
 import cardAPPio.DAO.ProductDAO;
+import cardAPPio.POJO.Bill;
 
 /**
  *
@@ -25,10 +26,14 @@ public class CardAPPio {
     public static Response getProduct(int prod_id){
         return ProductDAO.getProduct(prod_id);
     }
+    public static Response getBill(int bill_id){
+        return BillDAO.getBill(bill_id);
+    }
     public static Response openBill(String bill_table, String bill_device_id){
         return BillDAO.openBill(bill_table, bill_device_id);
     }
     public static void main(String [ ] args){
-        BillDAO.openBill("2", "3");
+        Bill bill =(Bill) BillDAO.chBillStatus(3, "4").getData();
+        System.out.println(bill.getBill_status());
     }
 }

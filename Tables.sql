@@ -10,7 +10,7 @@ CREATE TABLE Product(
 	prod_name VARCHAR(45) NOT NULL,
 	prod_description VARCHAR(45),
 	prod_image VARCHAR(45),
-	prod_price INT NOT NULL,
+	prod_price REAL NOT NULL,
 	FOREIGN KEY (cat_id) REFERENCES Category(cat_id)
 );
 

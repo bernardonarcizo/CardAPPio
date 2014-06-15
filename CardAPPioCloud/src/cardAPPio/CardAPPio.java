@@ -3,10 +3,9 @@
  * and open the template in the editor.
  */
 package cardAPPio;
-import cardAPPio.POJO.Category;
 import cardAPPio.POJO.Response;
 import cardAPPio.DAO.CategoryDAO;
-import java.util.Arrays;
+import cardAPPio.DAO.ProductDAO;
 
 /**
  *
@@ -18,5 +17,11 @@ public class CardAPPio {
     }
     public static Response getCategory(int cat_id){
         return CategoryDAO.getCategory(cat_id);
+    }
+    public static Response getProducts(int cat_id){
+        return ProductDAO.getCatProducts(cat_id);
+    }
+    public static Response getProduct(int prod_id){
+        return ProductDAO.getProduct(prod_id);
     }
 }

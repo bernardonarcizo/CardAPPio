@@ -39,11 +39,13 @@ public class BillDAO {
         return dbb.response();
     }
     
-    public Response openBill(final String bill_table, final String bill_device_id){
+    public static Response openBill(final String bill_table, final String bill_device_id){
         Database_Base<Bill> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException{
-                ResultSet rs = stmt.executeQuery("SELECT * FROM bill WHERE bill_device_id = " + bill_device_id + " AND bill_status != 4;");
+                System.out.println("SELECT * FROM bill WHERE bill_device_id = '" + bill_device_id + "' AND bill_status != '4';");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM bill WHERE bill_device_id = '" + bill_device_id + "' AND bill_status != '4';");
+                
                 
                 // This device already has a open bill
                 if(rs.next()){
@@ -52,12 +54,20 @@ public class BillDAO {
                     String bill_status = "0";
                     java.util.Date date = new java.util.Date();
                     Timestamp bill_open_time = new Timestamp(date.getTime());
-                    rs = stmt.executeQuery("INSERT INTO (bill_open_time, bill_table, bill_device_id,c )"
-                            + "VALUES("+bill_open_time+", "+bill_table+", "+bill_device_id+", "+bill_device_id+") RETURNING *;");
+                    rs = stmt.executeQuery("INSERT INTO bill(bill_open_time, bill_table, bill_device_id)"
+                            + "VALUES('"+bill_open_time+"', '"+bill_table+"', '"+bill_device_id+"') RETURNING *;");
+
                     rs.next();
                 }
-                
-                
+                Bill bill = new Bill();
+                bill.setBill_id(rs.getInt("bill_id"));
+                bill.setBill_table(rs.getString("bill_table"));
+                bill.setBill_open_time(rs.getTimestamp("bill_open_time"));
+                bill.setBill_close_time(rs.getTimestamp("bill_close_time"));
+                bill.setBill_status(rs.getString("bill_status"));
+                bill.setBill_payment_method(rs.getString("bill_payment_method"));
+                ret.setData(bill);
+                ret.setStatus(Global.OK);    
             }
            
         };

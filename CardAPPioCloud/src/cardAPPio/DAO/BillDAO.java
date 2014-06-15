@@ -30,7 +30,7 @@ public class BillDAO {
                 bill.setBill_table(rs.getString("bill_table"));
                 bill.setBill_open_time(rs.getTimestamp("bill_open_time"));
                 bill.setBill_close_time(rs.getTimestamp("bill_close_time"));
-                bill.setBill_status(rs.getString("bill_status"));
+                bill.setBill_status(rs.getInt("bill_status"));
                 bill.setBill_payment_method(rs.getString("bill_payment_method"));
                 ret.setData(bill);
                 ret.setStatus(Global.OK);
@@ -38,15 +38,15 @@ public class BillDAO {
         };
         return dbb.response();
     }
-    public static Response chBillStatus(final int bill_id, final String bill_status){
+    public static Response chBillStatus(final int bill_id, final int bill_status){
         Database_Base<Bill> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException{
-                String query = "UPDATE bill SET (bill_status) = ('" + bill_status + "') WHERE bill_id = " + bill_id+ " RETURNING * ;";
-                if(bill_status.equals("4")){
+                String query = "UPDATE bill SET (bill_status) = (" + bill_status + ") WHERE bill_id = " + bill_id+ " RETURNING * ;";
+                if(bill_status == 4){
                     java.util.Date date = new java.util.Date();
                     Timestamp bill_close_time = new Timestamp(date.getTime());
-                    query = "UPDATE bill SET (bill_status, bill_close_time) = ('" + bill_status + "', '" + bill_close_time + "') WHERE bill_id = " + bill_id+ " RETURNING * ;";
+                    query = "UPDATE bill SET (bill_status, bill_close_time) = (" + bill_status + ", CURRENT_TIMESTAMP) WHERE bill_id = " + bill_id+ " RETURNING * ;";
                 }
                 ResultSet rs = stmt.executeQuery(query);
                 rs.next();
@@ -55,7 +55,7 @@ public class BillDAO {
                 bill.setBill_table(rs.getString("bill_table"));
                 bill.setBill_open_time(rs.getTimestamp("bill_open_time"));
                 bill.setBill_close_time(rs.getTimestamp("bill_close_time"));
-                bill.setBill_status(rs.getString("bill_status"));
+                bill.setBill_status(rs.getInt("bill_status"));
                 bill.setBill_payment_method(rs.getString("bill_payment_method"));
                 ret.setData(bill);
                 ret.setStatus(Global.OK);    
@@ -69,19 +69,18 @@ public class BillDAO {
         Database_Base<Bill> dbb = new Database_Base(){
             @Override
             void evaluate() throws SQLException{
-                System.out.println("SELECT * FROM bill WHERE bill_device_id = '" + bill_device_id + "' AND bill_status != '4';");
-                ResultSet rs = stmt.executeQuery("SELECT * FROM bill WHERE bill_device_id = '" + bill_device_id + "' AND bill_status != '4';");
+                ResultSet rs = stmt.executeQuery("SELECT * FROM bill WHERE bill_device_id = '" + bill_device_id + "' AND bill_status != 4;");
                 
                 
                 // This device already has a open bill
                 if(rs.next()){
                     
                 }else{  // open a bill
-                    String bill_status = "0";
+                    int bill_status = 1;
                     java.util.Date date = new java.util.Date();
                     Timestamp bill_open_time = new Timestamp(date.getTime());
                     rs = stmt.executeQuery("INSERT INTO bill(bill_open_time, bill_table, bill_device_id, bill_status)"
-                            + "VALUES('"+bill_open_time+"', '"+bill_table+"', '"+bill_device_id+"', '"+bill_status+"') RETURNING *;");
+                            + "VALUES(CURRENT_TIMESTAMP, '"+bill_table+"', '"+bill_device_id+"', "+bill_status+") RETURNING *;");
 
                     rs.next();
                 }
@@ -90,7 +89,7 @@ public class BillDAO {
                 bill.setBill_table(rs.getString("bill_table"));
                 bill.setBill_open_time(rs.getTimestamp("bill_open_time"));
                 bill.setBill_close_time(rs.getTimestamp("bill_close_time"));
-                bill.setBill_status(rs.getString("bill_status"));
+                bill.setBill_status(rs.getInt("bill_status"));
                 bill.setBill_payment_method(rs.getString("bill_payment_method"));
                 ret.setData(bill);
                 ret.setStatus(Global.OK);    

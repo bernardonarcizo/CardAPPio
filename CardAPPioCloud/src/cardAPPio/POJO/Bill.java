@@ -15,7 +15,7 @@ import java.sql.Timestamp;
 public class Bill {
     private int bill_id;
     private String bill_table;
-    private String bill_status;
+    private int bill_status;
     private Timestamp bill_open_time;
     private Timestamp bill_close_time;
     private String bill_payment_method;
@@ -36,11 +36,11 @@ public class Bill {
         this.bill_table = bill_table;
     }
 
-    public String getBill_status() {
+    public int getBill_status() {
         return bill_status;
     }
 
-    public void setBill_status(String bill_status) {
+    public void setBill_status(int bill_status) {
         this.bill_status = bill_status;
     }
 

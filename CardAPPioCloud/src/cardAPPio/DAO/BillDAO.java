@@ -54,8 +54,8 @@ public class BillDAO {
                     String bill_status = "0";
                     java.util.Date date = new java.util.Date();
                     Timestamp bill_open_time = new Timestamp(date.getTime());
-                    rs = stmt.executeQuery("INSERT INTO bill(bill_open_time, bill_table, bill_device_id)"
-                            + "VALUES('"+bill_open_time+"', '"+bill_table+"', '"+bill_device_id+"') RETURNING *;");
+                    rs = stmt.executeQuery("INSERT INTO bill(bill_open_time, bill_table, bill_device_id, bill_status)"
+                            + "VALUES('"+bill_open_time+"', '"+bill_table+"', '"+bill_device_id+"', '"+bill_status+"') RETURNING *;");
 
                     rs.next();
                 }

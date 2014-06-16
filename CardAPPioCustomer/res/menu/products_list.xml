@@ -1,13 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.cardappio.cardappiocustomer.MainActivity" >
+    tools:context="com.cardappio.cardappiocustomer.ProductsListActivity" >
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never"/>
-    <item android:id="@+id/orders_action" android:title="Orders" android:icon="@drawable/orders_icon" app:showAsAction="ifRoom"></item>
 
 </menu>

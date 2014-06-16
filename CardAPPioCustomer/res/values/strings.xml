@@ -6,5 +6,7 @@
     <string name="action_settings">Settings</string>
     <string name="orders">Pedidos</string>
     <string name="title_activity_orders">Orders</string>
+    <string name="title_activity_main">Check-In</string>
+    <string name="title_activity_products_list">Products List</string>
 
 </resources>

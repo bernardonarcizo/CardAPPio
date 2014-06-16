@@ -27,7 +27,9 @@ public class OrderDAO {
                 //check if the bill is authorized( bill_status == 2 ) to place orders
                 ResultSet rs = stmt.executeQuery("SELECT * FROM bill WHERE bill_id = " + bill_id + ";");
                 if(rs.next()){
+                    //System.out.println(rs.getInt("bill_status"));
                     if(rs.getInt("bill_status") == 2 ){
+                       
                         //get Bill
                         Bill bill = new Bill();
                         bill.setBill_id(rs.getInt("bill_id"));
@@ -49,6 +51,7 @@ public class OrderDAO {
                         prod.setProd_price(rs.getFloat("prod_price"));
                         
                         //insert order
+                         System.out.println("inserindo");
                         rs = stmt.executeQuery("INSERT INTO orders (bill_id, prod_id, ord_unity_price, ord_quantity, ord_status, ord_time)"
                                 + " VALUES (" + bill_id +", "+ prod_id + ", "+prod.getProd_price()+", 1 , 1, CURRENT_TIMESTAMP) RETURNING *");
                         rs.next();
@@ -66,6 +69,8 @@ public class OrderDAO {
                         
                         
                         
+                    }else{
+                        ret.setStatus(Global.OK);
                     }
                 }
                     

@@ -41,7 +41,7 @@ public class CardAPPio {
        return OrderDAO.placeAnOrder(bill_id, prod_id);
     }
     public static void main(String [ ] args){
-        Order ord =(Order)  placeAnOrder(1,1).getData();
-        System.out.println(ord.getOrd_unity_price());
+        Order ord =(Order)  placeAnOrder(4,2).getData();
+        System.out.println(ord);
     }
 }

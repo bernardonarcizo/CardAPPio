@@ -40,8 +40,11 @@ public class CardAPPio {
     public static Response placeAnOrder(int bill_id, int prod_id){
        return OrderDAO.placeAnOrder(bill_id, prod_id);
     }
+    public static Response getOpenOrders(){
+        return OrderDAO.getOpenOrders();
+    }
     public static void main(String [ ] args){
-        Order ord =(Order)  placeAnOrder(4,2).getData();
-        System.out.println(ord);
+        getOpenOrders();
+        //System.out.println(ord);
     }
 }

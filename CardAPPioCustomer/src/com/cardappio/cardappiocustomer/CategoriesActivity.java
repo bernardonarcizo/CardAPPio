@@ -32,17 +32,16 @@ public class CategoriesActivity extends ActionBarActivity {
 	private static final String URL = Global.axis2host+"/services/CardAPPio?wsdl"; // you must use ipaddress here, don’t use Hostname or localhost
 	private ArrayList<Category> categories;
 	private ArrayAdapter<Category> adapter;
+	public final static String CAT_ID_MESSAGE = "com.cardappio.cardappiocustomer.CAT_ID_MESSAGE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Category cat = new Category();
-		cat.setCat_name("oi");
-		Category[] val = new Category[]{cat};
+		
+
+		
 		categories = new ArrayList<Category>();
 		setContentView(R.layout.activity_categories);
-		System.out.println("oito");
-		Log.w("Msg",cat.toString());
 		adapter = new ArrayAdapter<Category>(this, android.R.layout.simple_list_item_1, categories);
         ListView lView = (ListView) findViewById(R.id.listViewCategories);
         lView.setAdapter(adapter);
@@ -54,7 +53,7 @@ public class CategoriesActivity extends ActionBarActivity {
             			Toast toast = Toast.makeText(getApplicationContext(),"Ver produto "+String.valueOf(cat.getCat_id()), 5);
                     	toast.show();
                     	Intent intent = new Intent(view.getContext(), ProductsListActivity.class);
-                    	intent.putExtra("cat_id",cat.getCat_id());
+                    	intent.putExtra(CAT_ID_MESSAGE, cat.getCat_id());
             			startActivity(intent);
                     	//adapter.notifyDataSetChanged();
   

@@ -38,6 +38,7 @@ public class ProductsListActivity extends ActionBarActivity {
 	private int cat_id;
 	private ArrayList<Product> products;
 	private ArrayAdapter<Product> adapter;
+	public final static String PROD_ID_MESSAGE = "com.cardappio.cardappiocustomer.PROD_ID_MESSAGE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +52,18 @@ public class ProductsListActivity extends ActionBarActivity {
 		adapter = new ArrayAdapter<Product>(this, android.R.layout.simple_list_item_1, products);
         ListView lView = (ListView) findViewById(R.id.listViewProducts);
         lView.setAdapter(adapter);
-        //lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-           // @Override
-            //public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-            	//final Product prod = (Product) parent.getItemAtPosition(position);
-            			//Toast toast = Toast.makeText(getApplicationContext(),"Ver produto "+String.valueOf(prod.getProd_id()), 5);
-                    	//toast.show();
-                    	//Intent intent = new Intent(view.getContext(), ProductsListActivity.class);
-                    	//intent.putExtra("cat_id",cat.getCat_id());
-            			//startActivity(intent);
+           @Override
+           public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+            	final Product prod = (Product) parent.getItemAtPosition(position);
+                    	Intent intent = new Intent(view.getContext(), ProductActivity.class);
+                    	intent.putExtra(PROD_ID_MESSAGE,prod.getProd_id());
+            			startActivity(intent);
                     	//adapter.notifyDataSetChanged();
   
-            //}
-        //});
+            }
+        });
 		new GetProducts().execute();
 	}
 

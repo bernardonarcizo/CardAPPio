@@ -50,8 +50,6 @@ public class CategoriesActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
             	final Category cat = (Category) parent.getItemAtPosition(position);
-            			Toast toast = Toast.makeText(getApplicationContext(),"Ver produto "+String.valueOf(cat.getCat_id()), 5);
-                    	toast.show();
                     	Intent intent = new Intent(view.getContext(), ProductsListActivity.class);
                     	intent.putExtra(CAT_ID_MESSAGE, cat.getCat_id());
             			startActivity(intent);

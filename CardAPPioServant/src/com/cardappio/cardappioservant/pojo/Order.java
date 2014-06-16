@@ -1,7 +1,6 @@
-package com.cardappio.cardappiocustomer.pojo;
+package com.cardappio.cardappioservant.pojo;
 
 import java.sql.Timestamp;
-import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Order {
@@ -89,8 +88,7 @@ public class Order {
     
     public String toString(){
     	Locale ptBr = new Locale("pt", "BR");
-    	return "Aberto\n"+ this.product.getProd_name()+ " - " + NumberFormat.getCurrencyInstance(ptBr).format(this.ord_unity_price);
+    	return "Aberto\nM:" + this.bill.getBill_table() +" Cod:" + this.prod_id+" - " + this.product.getProd_name();
     }
-    
     
 }

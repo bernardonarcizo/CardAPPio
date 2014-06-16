@@ -1,4 +1,4 @@
-package com.cardappio.cardappiocustomer;
+package com.cardappio.cardappioservant;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -9,9 +9,9 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import com.cardappio.cardappiocustomer.pojo.Bill;
-import com.cardappio.cardappiocustomer.pojo.Order;
-import com.cardappio.cardappiocustomer.pojo.Product;
+import com.cardappio.cardappioservant.pojo.Bill;
+import com.cardappio.cardappioservant.pojo.Order;
+import com.cardappio.cardappioservant.pojo.Product;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -30,22 +30,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.os.Build;
 
-public class Orders extends ActionBarActivity {
-
-	private String METHOD_NAME = "getBillOrders"; // our webservice method name
+public class MainActivity extends ActionBarActivity {
+	private String METHOD_NAME = "getOpenOrders"; // our webservice method name
 	private String NAMESPACE = "http://cardAPPio"; // Here package name in webservice with reverse order.
 	private String SOAP_ACTION = NAMESPACE + METHOD_NAME; // NAMESPACE + method name
 	private static final String URL = Global.axis2host+"/services/CardAPPio?wsdl"; // you must use ipaddress here, don’t use Hostname or localhost
+	private int cat_id;
 	private ArrayList<Order> orders;
 	private ArrayAdapter<Order> adapter;
-	private Bill active_bill;
-	
+	public final static String PROD_ID_MESSAGE = "com.cardappio.cardappiocustomer.PROD_ID_MESSAGE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_orders);
-		active_bill = ((CardAPPioCustomer) this.getApplication()).getActive_bill();
+		setContentView(R.layout.activity_main);
 		orders = new ArrayList<Order>();
 		adapter = new ArrayAdapter<Order>(this, android.R.layout.simple_list_item_1, orders);
         ListView lView = (ListView) findViewById(R.id.listViewOrders);
@@ -57,12 +55,12 @@ public class Orders extends ActionBarActivity {
              public void run() {
                handler.post(new Runnable() {
                   public void run() {  
-                     new GetBillOrders().execute();
+                     new GetOrders().execute();
                   }
                 });
               }
         };
-        timer.schedule(task, 0, 1000); //it executes this every 1000m
+        timer.schedule(task, 0, 5000); //it executes this every 1000m
 
 	}
 
@@ -85,7 +83,7 @@ public class Orders extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	public class GetBillOrders extends AsyncTask<Void, Void, ArrayList<Order>> {
+	public class GetOrders extends AsyncTask<Void, Void, ArrayList<Order>> {
 
 	    ProgressDialog progress;
 	        String response = "";
@@ -99,7 +97,6 @@ public class Orders extends ActionBarActivity {
 	    protected ArrayList<Order> doInBackground(Void... arg0) {
 	    	 try{
 				   	SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-					request.addProperty("bill_id", active_bill.getBill_id()); 
 					SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
 					envelope.dotNet = true;
 					envelope.setOutputSoapObject(request);
@@ -107,7 +104,7 @@ public class Orders extends ActionBarActivity {
 					androidHttpTransport.call(SOAP_ACTION,envelope);
 					SoapObject result = new SoapObject("http://cardappiocustomer.cardappio.com","Response");
 					result = (SoapObject) envelope.getResponse();
-				Log.w("Msg",result.toString());
+//					/Log.w("Msg",result.toString());
 					if("OK".equals(result.getPropertySafely("status").toString())){
 						Log.w("Msg","foi");
 						SoapObject data = (SoapObject) result.getPropertySafely("data");
@@ -147,7 +144,6 @@ public class Orders extends ActionBarActivity {
 
 	    }
 	 }
-
 
 
 }

@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.cardappio.cardappiocustomer.CategoriesActivity"
-            android:label="@string/app_name" >
+            android:label="Categorias" >
             
         </activity>
         <activity
@@ -27,7 +27,7 @@
         </activity>
         <activity
             android:name="com.cardappio.cardappiocustomer.MainActivity"
-            android:label="@string/title_activity_main" 
+            android:label="@string/app_name" 
             android:noHistory="true">
             
             <intent-filter>

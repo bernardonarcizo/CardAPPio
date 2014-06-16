@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.cardappio.cardappiocustomer.MainActivity">
 
-    <Button
-        android:id="@+id/checkinButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editText1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:text="Check-In" 
-        android:onClick="checkin" />
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -33,6 +23,15 @@
         android:layout_marginTop="62dp"
         android:ems="10"
         android:inputType="number" />
+
+    <Button
+        android:id="@+id/checkinButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="checkin"
+        android:text="Check-In" />
 
 </RelativeLayout>
 

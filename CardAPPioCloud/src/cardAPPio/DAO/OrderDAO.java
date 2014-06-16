@@ -123,4 +123,49 @@ public class OrderDAO {
          };
         return dbb.response();
     }
+    public static Response<Order[]> getBillOrders(final int bill_id){
+        Database_Base<Order[]> dbb = new Database_Base(){
+            @Override
+            void evaluate() throws SQLException{
+                ResultSet rs = stmt.executeQuery("SELECT count(*) " +
+                                                 "from orders " +
+                                                 "inner join product on orders.prod_id = product.prod_id " +
+                                                 "inner join bill on orders.bill_id = bill.bill_id " +
+                                                 "WHERE bill_id != " + bill_id +" ;");
+               rs.next();
+               int nLines = rs.getInt(1);
+              Order[] data = new Order[nLines];
+              rs = stmt.executeQuery("SELECT prod_name, orders.prod_id, bill_table, orders.bill_id, ord_id, ord_unity_price, ord_quantity " +
+                                    "from orders " +
+                                    "inner join product on orders.prod_id = product.prod_id " +
+                                    "inner join bill on orders.bill_id = bill.bill_id " +
+                                    "WHERE bill_id != " + bill_id +";");
+               rs.next();
+               for (int i = 0; i < nLines; i++) {
+                   Product prod = new Product();
+                   prod.setProd_id(rs.getInt("prod_id"));
+                   prod.setProd_name(rs.getString("prod_name"));
+                   
+                   Bill bill = new Bill();
+                   bill.setBill_id(rs.getInt("bill_id"));
+                   bill.setBill_table(rs.getString("bill_table"));
+                   
+                   Order ord = new Order();
+                   ord.setOrd_id(rs.getInt("ord_id"));
+                   ord.setBill_id(rs.getInt("bill_id"));
+                   ord.setProd_id(rs.getInt("prod_id"));
+                   ord.setOrd_quantity(rs.getInt("ord_quantity"));
+                   ord.setOrd_unity_price(rs.getFloat("ord_unity_price"));
+                   ord.setBill(bill);
+                   ord.setProduct(prod);
+                   data[i] = ord;
+                   rs.next();
+                  
+               }
+                   ret.setData(data);
+                   ret.setStatus(Global.OK);
+            }
+         };
+        return dbb.response();
+    }
 }

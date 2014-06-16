@@ -43,6 +43,9 @@ public class CardAPPio {
     public static Response getOpenOrders(){
         return OrderDAO.getOpenOrders();
     }
+    public static Response getBillOrders(int bill_id){
+        return OrderDAO.getBillOrders(bill_id);
+    }
     public static void main(String [ ] args){
         getOpenOrders();
         //System.out.println(ord);
